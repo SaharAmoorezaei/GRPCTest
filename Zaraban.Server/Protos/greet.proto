@@ -1,0 +1,23 @@
+syntax = "proto3";
+
+option csharp_namespace = "Zaraban.Server";
+
+package Zaraban;
+
+// The Zaraban service definition.
+service ZarabanChat {
+  rpc Send (RequestMessage) returns (ResponseMessage);
+}
+
+
+// The request message containing the user's command.
+message RequestMessage {
+  string command = 1;
+}
+
+// The response message containing the greetings.
+message ResponseMessage {
+  string message = 1;
+  bool success = 2;
+}
+
