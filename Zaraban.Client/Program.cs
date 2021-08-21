@@ -3,6 +3,7 @@ using System;
 using System.Threading.Tasks;
 using ProtoBuf.Grpc.Client;
 using Zaraban.Shared;
+using System.Threading;
 
 namespace Zaraban.Client
 {
@@ -89,17 +90,36 @@ namespace Zaraban.Client
 
         static async Task Main(string[] args)
         {
-            using (var channel = GrpcChannel.ForAddress("https://localhost:5001"))
+            //using (var channel = GrpcChannel.ForAddress("https://localhost:5001"))
+            //{
+            //    GrpcClientFactory.AllowUnencryptedHttp2 = true;
+            //    var client = channel.CreateGrpcService<IChatService>();
+            //    var result2 = await client.SendAsync(new RequestMessage() { Message = "Hello" });
+            //    //var result = await client.SendAsync("Hello");
+            //    result2.Success = true;
+            //    Console.WriteLine(result2.Message);
+            //    //Console.WriteLine(result);
+            //    Console.ReadLine();
+            //}
+            //Console.ReadLine();
+            
+            Thread t1 = new Thread(() =>
             {
-                GrpcClientFactory.AllowUnencryptedHttp2 = true;
-                var client = channel.CreateGrpcService<IClient>();
-                //var result = await client.SendAsync(new Shared.RequestMessage() { Message = "Hello" });
-                var result = await client.SendAsync("Hello");
-                //result.Success = true;
-                //Console.WriteLine(result.Message);
-                Console.WriteLine(result);
-                Console.ReadLine();
-            }
+                var client = new Client("https://localhost:5001");
+                client.SendWithLogAsync("hello").Wait();
+            });
+            t1.Start();
+
+            var t2 = new Thread(() =>
+            {
+                var client = new Client("https://localhost:5001");
+                client.SendWithLogAsync("ping").Wait();
+            });
+            t2.Start();
+
+            t2.Join();
+            Console.WriteLine("finish");
+            Console.ReadLine();
         }
     }
 }

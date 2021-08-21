@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="protobuf-net.Core" Version="3.0.101" />
     <PackageReference Include="System.ServiceModel.Primitives" Version="4.8.1" />
   </ItemGroup>
 

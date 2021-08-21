@@ -25,9 +25,9 @@ namespace Zaraban.Server
             //services.AddCodeFirstGrpcReflection();
 
 
-            services.AddSingleton<IClient, Client>();
-            services.AddSingleton<IResponseMessage, Shared.ResponseMessage>();
-            services.AddSingleton<IRequestMessage, Shared.RequestMessage>();
+            services.AddSingleton<IChatService, ChatService>();
+            services.AddSingleton<IResponseMessage,ResponseMessage>();
+            services.AddSingleton<IRequestMessage,RequestMessage>();
 
         }
 
@@ -43,8 +43,8 @@ namespace Zaraban.Server
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGrpcService<ZarabanChatService>();
-                endpoints.MapGrpcService<IClient>();
+                //endpoints.MapGrpcService<ZarabanChatService>();
+                endpoints.MapGrpcService<IChatService>();
 
                 endpoints.MapGet("/", async context =>
                 {
