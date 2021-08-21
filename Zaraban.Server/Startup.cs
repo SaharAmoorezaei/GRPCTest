@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
+using ProtoBuf.Grpc.Configuration;
+using ProtoBuf.Grpc.Server;
 using Zaraban.Server.Services;
+using Zaraban.Shared;
 
 namespace Zaraban.Server
 {
@@ -18,6 +19,16 @@ namespace Zaraban.Server
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddGrpc();
+            services.AddCodeFirstGrpc();
+
+            //services.TryAddSingleton(BinderConfiguration.Create(binder: new ServiceBinderWithServiceResolutionFromServiceCollection(services)));
+            //services.AddCodeFirstGrpcReflection();
+
+
+            services.AddSingleton<IClient, Client>();
+            services.AddSingleton<IResponseMessage, Shared.ResponseMessage>();
+            services.AddSingleton<IRequestMessage, Shared.RequestMessage>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -33,6 +44,7 @@ namespace Zaraban.Server
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapGrpcService<ZarabanChatService>();
+                endpoints.MapGrpcService<IClient>();
 
                 endpoints.MapGet("/", async context =>
                 {

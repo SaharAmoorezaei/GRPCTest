@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zaraban.Server", "Zaraban.S
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zaraban.Client", "Zaraban.Client\Zaraban.Client.csproj", "{837F5593-61EB-423A-9C1D-137819B66D45}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Zaraban.Shared", "Zaraban.Shared\Zaraban.Shared.csproj", "{675375A1-6A94-435E-A448-484AD872B578}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{837F5593-61EB-423A-9C1D-137819B66D45}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{837F5593-61EB-423A-9C1D-137819B66D45}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{837F5593-61EB-423A-9C1D-137819B66D45}.Release|Any CPU.Build.0 = Release|Any CPU
+		{675375A1-6A94-435E-A448-484AD872B578}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{675375A1-6A94-435E-A448-484AD872B578}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{675375A1-6A94-435E-A448-484AD872B578}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{675375A1-6A94-435E-A448-484AD872B578}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
