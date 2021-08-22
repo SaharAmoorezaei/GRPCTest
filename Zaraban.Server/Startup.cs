@@ -3,12 +3,10 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Hosting;
-using ProtoBuf.Grpc.Configuration;
 using ProtoBuf.Grpc.Server;
 using Zaraban.Server.Services;
-using Zaraban.Shared;
+using Zaraban.Shared.Contracts;
 
 namespace Zaraban.Server
 {
@@ -21,13 +19,7 @@ namespace Zaraban.Server
             services.AddGrpc();
             services.AddCodeFirstGrpc();
 
-            //services.TryAddSingleton(BinderConfiguration.Create(binder: new ServiceBinderWithServiceResolutionFromServiceCollection(services)));
-            //services.AddCodeFirstGrpcReflection();
-
-
             services.AddSingleton<IChatService, ChatService>();
-            services.AddSingleton<IResponseMessage,ResponseMessage>();
-            services.AddSingleton<IRequestMessage,RequestMessage>();
 
         }
 
@@ -43,7 +35,6 @@ namespace Zaraban.Server
 
             app.UseEndpoints(endpoints =>
             {
-                //endpoints.MapGrpcService<ZarabanChatService>();
                 endpoints.MapGrpcService<IChatService>();
 
                 endpoints.MapGet("/", async context =>
