@@ -1,5 +1,6 @@
 ﻿
 using System;
+using Zaraban.Shared.Helper;
 
 namespace Zaraban.Shared.Models
 {
@@ -7,6 +8,7 @@ namespace Zaraban.Shared.Models
     {
         string Message { get; set; }
         bool Success { get; set; }
+        bool IsTerminated { get; set; }
         /// <summary>
         /// Print Message
         /// </summary>
@@ -18,7 +20,7 @@ namespace Zaraban.Shared.Models
     {
         public string Message { get; set; }
         public bool Success { get; set; }
-
+        public bool IsTerminated { get; set; }
         /// <summary>
         /// write response in Console
         /// </summary>
@@ -33,6 +35,7 @@ namespace Zaraban.Shared.Models
     {
         public string Message { get; set; }
         public bool Success { get; set; }
+        public bool IsTerminated { get; set; }
 
         /// <summary>
         /// write respnse in console
@@ -41,10 +44,10 @@ namespace Zaraban.Shared.Models
         {
             if (!Success)
             {
-                Console.ForegroundColor = ConsoleColor.Red;
+                ConsoleHelper.LogWarning("> " + Message);
+                return;
             }
-            Console.WriteLine(Message);
-            Console.ForegroundColor = ConsoleColor.White;
+            Console.WriteLine("> " + Message);
         }
     }
 
@@ -52,6 +55,7 @@ namespace Zaraban.Shared.Models
     {
         public string Message { get; set; }
         public bool Success { get; set; }
+        public bool IsTerminated { get; set; }
 
         public void Print()
         {
@@ -68,7 +72,8 @@ namespace Zaraban.Shared.Models
     public class EmojioResponseMessage : IResponseMessage
     {
         public string Message { get; set; }
-        public bool Success { get; set; }      
+        public bool Success { get; set; }
+        public bool IsTerminated { get; set; }
 
         public void Print()
         {

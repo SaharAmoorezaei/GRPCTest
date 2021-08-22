@@ -9,5 +9,6 @@ namespace Zaraban.Shared.Contracts
     {
         Task<string> SendAsync(string message);
         Task<IResponseMessage> SendAsync(IRequestMessage requestMessage);
+        Task CloseConnection();
     }
 }

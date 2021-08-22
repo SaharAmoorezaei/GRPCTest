@@ -29,25 +29,21 @@ namespace Zaraban.Client
 
         public async Task<IResponseMessage> SendAsync(IRequestMessage requestMessage)
         {
-            var response = await _client.SendAsync(requestMessage.Message);
-            await CloseConnection(response);    
-            return new ResponseMessage() { Message = response, Success = response != "Exception" };
+            var response = await _client.SendAsync(requestMessage.Message);  
+            
+            return new ResponseMessage() { Message = response, Success = response != "Exception", IsTerminated = response == "Bye" };
         }
 
         public async Task<TResponseMessage> SendAsync<TResponseMessage>(IRequestMessage requestMessage) where TResponseMessage : IResponseMessage, new()
         {
             var response = await _client.SendAsync(requestMessage.Message);
-            await CloseConnection(response);
-            return new TResponseMessage() { Message = response, Success = response != "Exception" };
+            return new TResponseMessage() { Message = response, Success = response != "Exception", IsTerminated = response == "Bye" };
         }
 
 
-        private async Task CloseConnection(string response)
+        public async Task CloseConnection()
         {
-            if (response == "Bye")
-            {
-                await _channel.ShutdownAsync();
-            }
+            await _channel.ShutdownAsync();
         }
 
         public void Dispose()
